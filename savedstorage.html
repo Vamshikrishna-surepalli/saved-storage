@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<center>
+
+    <head>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+
+    </head>
+    <title>Student Information</title>
+
+    <body>
+        Name:
+        <input type="text" placeholder="name" id="user">
+        <br>
+        Age:
+        <input type="number" placeholder="age" id="age">
+        <br>
+        Date of birthday:
+        <input type="date" placeholder="birthday" id="birthday">
+        <br>
+        Gender:
+        Male:<input name="radio" value="male" id="male" type="radio" />
+        Female<input name="radio" value="female" id="female" type="radio" />
+        <br>
+        <input type="submit" onclick="myfunction()" id="demo">
+
+        <p id="result"></p>
+        <table>
+            <tr>
+                <th class="head">name</th>
+                <th class="head">age</th>
+                <th class="head">bithday</th>
+                <th class="head">Gender</th>
+            </tr>
+            <tbody id="box"> </tbody>
+        </table>
+
+    </body>
+    <script>
+        function myfunction() {
+            var input = document.getElementById('user').value;
+            var srt = document.getElementById('age').value;
+            var srt1 = document.getElementById('birthday').value;
+            var srt2 = document.getElementById('male');
+            var srt3 = document.getElementById('female');
+            var str4 = " "
+            if (srt2.checked) {
+                str4 = srt2.value
+            } else if (srt3.checked) {
+                str4 = srt3.value
+            }
+            var student = [];
+            var old_data = JSON.parse(localStorage.getItem('data'));
+            if (old_data && old_data.length > 0) {
+                student = old_data
+            }
+            let obj = {
+                input,
+                srt,
+                srt1,
+                srt2,
+                srt3,
+                str4
+            }
+            student.push(obj)
+            localStorage.setItem('data', JSON.stringify(student))
+
+            var text;
+            text = "";
+            if (student && student.length > 0) {
+                for (let i = 0; i < student.length; i++) {
+                    text += "<tr>";
+                    text += "<td>" + student[i].input + " </td>";
+                    text += "<td>" + student[i].srt + "</td>";
+                    text += "<td>" + student[i].srt1 + "</td>";
+                    text += "<td>" + student[i].str4 + "</td>";
+                }
+            }
+
+
+
+            document.getElementById("box").innerHTML = text;
+        }
+
+    </script>
+</center>
+
+</html>
